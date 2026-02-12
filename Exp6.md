@@ -1,5 +1,5 @@
 # <center>Experiment No.6
-### 1. Display empno, ename, deptno from employee table. Instead of display department numbers display the related department name (Use decode function). 
+### 1. Display empno, ename, deptno from employee table. Instead of display department numbers display the related department name (Use decode function for ORACLE and CASE for MySQL). 
 ~~~sql
 SELECT 
     EMPNO,
@@ -43,7 +43,13 @@ WHERE ENAME = 'SCOTT';
 ~~~sql
 SELECT DATE_ADD(
     CURDATE(),
-    INTERVAL (6 - WEEKDAY(CURDATE())) DAY
+    INTERVAL (5 - WEEKDAY(CURDATE())) DAY
+) AS NEXT_SATURDAY;
+~~~
+~~~sql
+SELECT DATE_ADD(
+    CURDATE(),
+    INTERVAL (5 - WEEKDAY(CURDATE()) + 7) % 7 DAY
 ) AS NEXT_SATURDAY;
 ~~~
 ### 8. Display current time. 
