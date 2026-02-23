@@ -42,16 +42,23 @@ WHERE ENAME = 'SCOTT';
 ### 7. Find the date for nearest Saturday after current date.
 ~~~sql
 SELECT DATE_ADD(
-    CURDATE(),
-    INTERVAL (5 - WEEKDAY(CURDATE())) DAY
+    '2026-02-22',
+    INTERVAL MOD(5 - WEEKDAY('2026-02-22') +7, 7) DAY
+) AS NEXT_SATURDAY;
+~~~
+~~~sql
+SELECT DATE_ADD(
+    '2026-02-22',
+    INTERVAL MOD(7 - DAYOFWEEK('2026-02-22') +7, 7) DAY
 ) AS NEXT_SATURDAY;
 ~~~
 ~~~sql
 SELECT DATE_ADD(
     CURDATE(),
-    INTERVAL (5 - WEEKDAY(CURDATE()) + 7) % 7 DAY
+    INTERVAL (5 - WEEKDAY(CURDATE())) DAY
 ) AS NEXT_SATURDAY;
 ~~~
+##### Note: The above code is correct for days less than saturday, but when value become negative, then it dosen't work.
 ### 8. Display current time. 
 ~~~sql
 SELECT CURTIME() AS CURRENT_TIME;
@@ -62,7 +69,7 @@ SELECT DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
 AS DATE_BEFORE_3_MONTHS;
 ~~~
 ### 10. Display those employees who joined in the company in the month of Dec. 
-~~~sql
+~~~sql 
 SELECT ENAME, HIREDATE
 FROM EMPLOYEE
 WHERE MONTH(HIREDATE) = 12;
@@ -85,11 +92,11 @@ SELECT ENAME, HIREDATE
 FROM EMPLOYEE
 WHERE DAY(HIREDATE) < 15;
 ~~~
-### 14. Display those employees who has joined before 15th of the month 
+### 14. Display those employees who has joined AFTER 15th of the month 
 ~~~sql
 SELECT ENAME, HIREDATE
 FROM EMPLOYEE
-WHERE DAY(HIREDATE) < 15;
+WHERE DAY(HIREDATE) > 15;
 ~~~
 ### 15. Display those employees whose joining DATE is available in deptno.
 ~~~sql
@@ -98,3 +105,10 @@ FROM EMPLOYEE
 WHERE HIREDATE IS NOT NULL
 AND DEPTNO IS NOT NULL;
 ~~~
+    Example (Add 7 days):
+    DATE_ADD(date, INTERVAL value interval_type)
+    SELECT DATE_ADD('2025-01-01', INTERVAL 7 DAY);
+    
+    Example (Subtract 3 hours):
+    DATE_SUB(date, INTERVAL value interval_type)
+    SELECT DATE_SUB('2025-01-01 12:00:00', INTERVAL 3 HOUR);
