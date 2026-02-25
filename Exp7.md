@@ -7,8 +7,13 @@ DATEDIFF(
     CURDATE()
 ) AS DAYS_REMAINING;
 ~~~
+~~~sql
+SELECT DATEDIFF(
+    CONCAT(YEAR(CURDATE()),'-12-31'),CURDATE());
+~~~
 ##### MAKEDATE(year, dayofyear) → First day of next year
 ##### DATEDIFF() → Difference in days
+##### SELECT MAKEDATE(2024, 60);  -> (Returns the 60th day of 2024, which is '2024-02-29') 
 ### 2. Find the highest and lowest salaries and the difference between them. 
 ~~~sql
 SELECT 
@@ -23,10 +28,22 @@ SELECT ENAME, SAL, COMM
 FROM EMPLOYEE
 WHERE COMM > (SAL * 0.25);
 ~~~
+~~~sql
+SELECT ENAME, SAL, COMM
+FROM EMPLOYEE
+WHERE IFNULL(COMM,0) > SAL * 0.25;
+~~~
 ### 4. Make a query that displays salary in dollar format. 
 ~~~sql
 SELECT ENAME,
 CONCAT('$', FORMAT(SAL, 2)) AS SALARY_IN_DOLLAR
+FROM EMPLOYEE;
+~~~
+### For conversion of value(₹ → $ assuming rate 83):
+~~~sql
+SELECT 
+ENAME,
+CONCAT('$ ', FORMAT(SAL / 83, 2)) AS SALARY_IN_DOLLAR
 FROM EMPLOYEE;
 ~~~
 ##### FORMAT(SAL,2) → 2 decimal places
