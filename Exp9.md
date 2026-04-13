@@ -1,4 +1,4 @@
-# <center>Experiment No.8
+# <center>Experiment No.9
 ### Perform the following Query 
 ### 1. Display the name of emp name who earns highest salary. 
 ~~~sql
