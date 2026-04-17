@@ -85,3 +85,19 @@ WHERE E.DEPTNO IN (10, 30)
 AND S.GRADE <> D
 AND E.HIREDATE < '1982-12-31';
 ~~~
+
+```
+ANY:  means “compare with at least one value” from the subquery. Means, Condition becomes TRUE if it is true for any one value returned by subquery.
+
+SYNTAX: value operator ANY (subquery)
+
+ALL: means “compare with every value” from the subquery. Means, Condition becomes TRUE only if it is true for all values.
+
+SYNTAX: value operator ALL (subquery)
+
+Following are Valid Operations:
+> ANY
+< ANY
+>= ALL
+!= ALL
+
